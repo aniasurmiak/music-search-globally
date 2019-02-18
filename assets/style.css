@@ -1,0 +1,51 @@
+body{
+  font-family: Helvetica, sans-serif;
+  background-color: rgb(42, 42, 42);
+  color: white;
+}
+
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.row > * {
+  flex: 1;
+}
+
+.row > img {
+  width: auto;
+}
+
+.th {font-weight: bold;padding-bottom:1em}
+
+
+#filter-input {
+  float: right;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+}
+
+
+label {
+  float: right;
+  padding: .3em;
+  border: none;
+  outline: none;
+}
+
+p{ font-size: smaller}
+
+#price,#artist{
+  cursor: pointer;
+}
+
+.counter{
+  font-size: large;
+}
