@@ -49,7 +49,7 @@ class TrackList {
 
     return trackList
   }
-  
+
   // Search filter
   filterTracks(search) {
     const newData = this.data.filter(track => track.artistName.toLowerCase().includes(search.toLowerCase()) || track.trackName.toLowerCase().includes(search.toLowerCase()))
@@ -67,7 +67,7 @@ class TrackList {
   defaultTemplate() {
     return `
     <div>Search to see music</div>`
-    
+
   }
   isSorted(array, prop) {
     return array.slice(1).every((item, i) => array[i][prop] <= item[prop])
@@ -143,8 +143,8 @@ class TrackList {
     const header = "<h1>My tracks</h1>"
     // template methode accepts data to view and returns html string
     const template = this.viewData
-    ? this.template(this.viewData)
-    : this.defaultTemplate()
+      ? this.template(this.viewData)
+      : this.defaultTemplate()
     // Adding data in to our view !Order Matters!
     output += header
     output += "<p>Data from iTunes</p>"
@@ -152,33 +152,46 @@ class TrackList {
     // Assinging view in to innerHTML of our domElement form the constructor
     this.container.innerHTML = output
     // Add EventLiseners
-   
+
   }
 }
 
 const myTrackList = new TrackList("#tracks")
 const search = "jack johnson"
 const url = `https://dci-fbw12-search-itunes.now.sh/?term=${search}`
-const req = new XMLHttpRequest()
-req.open("GET", url, true)
-req.responseType = "json"
-req.onload = function() {
-  var jsonResponse = req.response
-  console.log(jsonResponse.results)
-  myTrackList.updateData(jsonResponse.results)
-  myTrackList.data = jsonResponse.results
-  myTrackList.viewData = jsonResponse.results
-  myTrackList.render()
-  // do something with jsonResponse
-}
-document.querySelector(".request").addEventListener("input", function() {
+//const req = new XMLHttpRequest()
+//req.open("GET", url, true)
+//req.responseType = "json"
+//req.onload = function() {
+//var jsonResponse = req.response
+//console.log(jsonResponse.results)
+//myTrackList.updateData(jsonResponse.results)
+//myTrackList.data = jsonResponse.results
+//myTrackList.viewData = jsonResponse.results
+//myTrackList.render()
+// do something with jsonResponse
+//}
+
+fetch(url)
+  .then(response => {
+    console.log(response)
+    return response.json()
+  }).then((data) => {
+
+    //console.log(data)
+    myTrackList.updateData(data.results)
+  })
+  .catch(function (err) {
+    console.log("Something went wrong!", err)
+  })
+document.querySelector(".request").addEventListener("input", function () {
   const search = document.querySelector(".request").value;
   const modSearch = search.replace(" ", "%20");
   const url = `https://dci-fbw12-search-itunes.now.sh/?term=${modSearch}`;
   const req = new XMLHttpRequest();
   req.open("GET", url, true);
   req.responseType = "json";
-  req.onload = function() {
+  req.onload = function () {
     var jsonResponse = req.response;
     console.log(jsonResponse.results);
     myTrackList.updateData(jsonResponse.results);
@@ -188,4 +201,4 @@ document.querySelector(".request").addEventListener("input", function() {
   req.send(null);
 });
 
-req.send(null)
+//req.send(null)
