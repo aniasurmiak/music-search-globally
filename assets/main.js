@@ -104,15 +104,15 @@ class TrackList {
       }
 
     // Event listener to sort price and artist
-    document.querySelector("#price").addEventListener("click", () => this.sortPricing())
-    document.querySelector("#artist").addEventListener("click", () => this.sortArtist())
+    // document.querySelector("#price").addEventListener("click", () => this.sortPricing())
+    // document.querySelector("#artist").addEventListener("click", () => this.sortArtist())
     // Create event listeners for any play-button
     let playLinks = document.querySelectorAll(".fa-play")
     let data = this.data
     playLinks.forEach(
       function (link) {
         link.addEventListener("click", function (event) {
-          console.log(`Playing ${event.target.id}`)
+          console.log(`Playing ${event}`)
           // Retrieve the data for the selected track
           let myTrack = data.filter(track => track.trackId == event.target.id)
           // Create an audio player for the selected track
@@ -152,12 +152,13 @@ class TrackList {
     // Assinging view in to innerHTML of our domElement form the constructor
     this.container.innerHTML = output
     // Add EventLiseners
-
+    this.addEventListeners()
   }
 }
 
+
 const myTrackList = new TrackList("#tracks")
-const search = "jack johnson"
+const search = "ben klock"
 const url = `https://dci-fbw12-search-itunes.now.sh/?term=${search}`
 //const req = new XMLHttpRequest()
 //req.open("GET", url, true)
@@ -171,7 +172,6 @@ const url = `https://dci-fbw12-search-itunes.now.sh/?term=${search}`
 //myTrackList.render()
 // do something with jsonResponse
 //}
-
 fetch(url)
   .then(response => {
     console.log(response)
